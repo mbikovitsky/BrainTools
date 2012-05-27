@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brainfuck", "Brainfuck\Brainfuck.csproj", "{F532E232-B61C-4297-8ACB-FF237BA21D79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainTools", "BrainTools\BrainTools.csproj", "{F532E232-B61C-4297-8ACB-FF237BA21D79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

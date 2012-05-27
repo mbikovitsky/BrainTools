@@ -12,6 +12,7 @@ Currently, not much =] You can experiment with the code yourself to see what's w
 Basically, you can run Brainfuck programs.
 Also, you can decode Brainloller images into Brainfuck code (and then run it).
 __UPDATE:__ Now you can encode Brainfuck programs into images using Braincopter (and then decode them back).
+__UPDATE #2:__ Now there is a Brainloller encoder.
 
 What next?
 -----------

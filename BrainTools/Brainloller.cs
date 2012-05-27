@@ -7,85 +7,93 @@ using System.Drawing;
 
 namespace Brainfuck
 {
-    static class Braincopter
+    static class Brainloller
     {
-        private static enum Direction
+        private enum Direction
         {
             east, west, north, south
         };
 
-        public static Bitmap Encode(Bitmap bmp, string code)
+        public static Bitmap Encode(string code, int width, Color gapFiller)
         {
-            if ((bmp.Width - 2) * bmp.Height + 2 < code.Length)
-                return null;
+            double _height = (double)code.Length / (width - 2);
+            int height = 0;
+            if (_height == (int)_height)
+                height = (int)_height;
+            else
+                height = (int)_height + 1;
 
-            Bitmap newBmp = (Bitmap)bmp.Clone();
+            Bitmap newBmp = new Bitmap(width, height);
+            int length = code.Length;
+
+            int curX = 1, curY = 0;
             Direction dir = Direction.east;
-            int curX = 0, curY = 0;
 
             for (int i = 0; i < code.Length; i++)
             {
-                Color clr = newBmp.GetPixel(curX, curY);
-                int cmd = 10;
+                Color clr = Color.FromArgb(0, 0, 0);
 
                 if (curX == newBmp.Width - 1 && dir == Direction.east)
                 {
-                    newBmp.SetPixel(curX, curY, GetClosest(clr, 8));    //Rotating to the right
-                    newBmp.SetPixel(curX, curY + 1, GetClosest(newBmp.GetPixel(curX, curY + 1), 8));    //And a line below
-                    curX--;     //Setting new coordinates
+                    newBmp.SetPixel(curX, curY, Color.FromArgb(0, 255, 255));
+                    newBmp.SetPixel(curX, curY + 1, Color.FromArgb(0, 255, 255));
+                    curX--;
                     curY++;
-                    clr = newBmp.GetPixel(curX, curY);
+                    dir = Direction.west;
                 }
                 else if (curX == 0 && dir == Direction.west)
                 {
-                    newBmp.SetPixel(curX, curY, GetClosest(clr, 9));    //Rotating to the left
-                    newBmp.SetPixel(curX, curY + 1, GetClosest(newBmp.GetPixel(curX, curY + 1), 9));    //And a line below
-                    curX++;     //Setting new coordinates
+                    newBmp.SetPixel(curX, curY, Color.FromArgb(0, 128, 128));
+                    newBmp.SetPixel(curX, curY + 1, Color.FromArgb(0, 128, 128));
+                    curX++;
                     curY++;
-                    clr = newBmp.GetPixel(curX, curY);
+                    dir = Direction.east;
                 }
 
                 switch (code[i])
                 {
                     case '>':
-                        cmd = 0;
+                        clr = Color.FromArgb(255, 0, 0);
                         break;
                     case '<':
-                        cmd = 1;
+                        clr = Color.FromArgb(128, 0, 0);
                         break;
                     case '+':
-                        cmd = 2;
+                        clr = Color.FromArgb(0, 255, 0);
                         break;
                     case '-':
-                        cmd = 3;
+                        clr = Color.FromArgb(0, 128, 0);
                         break;
                     case '.':
-                        cmd = 4;
+                        clr = Color.FromArgb(0, 0, 255);
+                        break;
+                    case ',':
+                        clr = Color.FromArgb(0, 0, 128);
                         break;
                     case '[':
-                        cmd = 6;
+                        clr = Color.FromArgb(255, 255, 0);
                         break;
                     case ']':
-                        cmd = 7;
+                        clr = Color.FromArgb(128, 128, 0);
                         break;
                     default:
                         continue;
                 }
 
-                newBmp.SetPixel(curX, curY, GetClosest(clr, cmd));
+                newBmp.SetPixel(curX, curY, clr);
 
                 if (dir == Direction.east)
                     curX++;
-                else if (dir == Direction.west)
+                if (dir == Direction.west)
                     curX--;
             }
 
             if (dir == Direction.east)
                 for (int i = curX; i < newBmp.Width; i++)
-                    newBmp.SetPixel(i, curY, GetClosest(newBmp.GetPixel(i, curY), 10));
+                    newBmp.SetPixel(i, curY, gapFiller);
             else if (dir == Direction.west)
                 for (int i = curX; i > -1; i--)
-                    newBmp.SetPixel(i, curY, GetClosest(newBmp.GetPixel(i, curY), 10));
+                    newBmp.SetPixel(i, curY, gapFiller);
 
             return newBmp;
         }
@@ -99,60 +107,59 @@ namespace Brainfuck
             while ((curX >= 0 && curX < bmp.Width) && (curY >= 0 && curY < bmp.Height))
             {
                 Color clr = bmp.GetPixel(curX, curY);
-                int cmd = (-2 * clr.R + 3 * clr.G + clr.B) % 11;
 
-                if (cmd == 0)
+                if (clr.R == 255 && clr.G == 0 && clr.B == 0)
                     code += ">";
-                if (cmd == 1)
+                if (clr.R == 128 && clr.G == 0 && clr.B == 0)
                     code += "<";
-                if (cmd == 2)
+                if (clr.R == 0 && clr.G == 255 && clr.B == 0)
                     code += "+";
-                if (cmd == 3)
+                if (clr.R == 0 && clr.G == 128 && clr.B == 0)
                     code += "-";
-                if (cmd == 4)
+                if (clr.R == 0 && clr.G == 0 && clr.B == 255)
                     code += ".";
-                if (cmd == 5)
+                if (clr.R == 0 && clr.G == 0 && clr.B == 128)
                     code += ",";
-                if (cmd == 6)
+                if (clr.R == 255 && clr.G == 255 && clr.B == 0)
                     code += "[";
-                if (cmd == 7)
+                if (clr.R == 128 && clr.G == 128 && clr.B == 0)
                     code += "]";
 
-                if (cmd == 8)
+                if (clr.R == 0 && clr.G == 255 && clr.B == 255)
                 {
                     switch (dir)
                     {
                         case Direction.east:
                             dir = Direction.south;
                             break;
+                        case Direction.south:
+                            dir = Direction.west;
+                            break;
                         case Direction.west:
                             dir = Direction.north;
                             break;
                         case Direction.north:
                             dir = Direction.east;
-                            break;
-                        case Direction.south:
-                            dir = Direction.west;
                             break;
                         default:
                             break;
                     }
                 }
-                if (cmd == 9)
+                if (clr.R == 0 && clr.G == 128 && clr.B == 128)
                 {
                     switch (dir)
                     {
                         case Direction.east:
                             dir = Direction.north;
                             break;
+                        case Direction.south:
+                            dir = Direction.east;
+                            break;
                         case Direction.west:
                             dir = Direction.south;
                             break;
                         case Direction.north:
                             dir = Direction.west;
-                            break;
-                        case Direction.south:
-                            dir = Direction.east;
                             break;
                         default:
                             break;
@@ -181,38 +188,15 @@ namespace Brainfuck
             return code;
         }
 
-        private static Color GetClosest(Color origin, int cmd)
+        public static Bitmap Reduce(Bitmap bmp, int pxWidth, int pxHeight)
         {
-            int value = (-2 * origin.R + 3 * origin.G + origin.B) % 11;
-            int diff = cmd - value;
+            Bitmap newBmp = new Bitmap(bmp.Width / pxWidth, bmp.Height / pxHeight);
 
-            if (diff > 0)
-            {
-                if (origin.B + diff > 255)
-                    return Color.FromArgb(origin.R, origin.G, origin.B - (10 - diff));
-                else if (origin.B - (10 - diff) < 0)
-                    return Color.FromArgb(origin.R, origin.G, origin.B + diff);
+            for (int row = 0; row < bmp.Height; row += pxHeight)
+                for (int col = 0; col < bmp.Width; col += pxWidth)
+                    newBmp.SetPixel(col / 10, row / 10, bmp.GetPixel(col, row));
 
-                if (10 - diff < diff)
-                    return Color.FromArgb(origin.R, origin.G, origin.B - (10 - diff));
-                else
-                    return Color.FromArgb(origin.R, origin.G, origin.B + diff);
-            }
-            if (diff < 0)
-            {
-                diff = Math.Abs(diff);
-                if (origin.B - diff > 255)
-                    return Color.FromArgb(origin.R, origin.G, origin.B + (10 - diff));
-                else if (origin.B + (10 - diff) < 0)
-                    return Color.FromArgb(origin.R, origin.G, origin.B - diff);
-
-                if (10 - diff < diff)
-                    return Color.FromArgb(origin.R, origin.G, origin.B + (10 - diff));
-                else
-                    return Color.FromArgb(origin.R, origin.G, origin.B - diff);
-            }
-
-            return origin;
+            return newBmp;
         }
     }
 }
