@@ -3,21 +3,42 @@ BrainTools
 
 What is it?
 ------------
-An utility for working with Brainfuck and related languages. Can encode and decode programs in various
+An utility for working with Brainfuck and related languages. It can encode and decode programs in various
 formats.
 
 What works?
 ------------
-Currently, not much =] You can experiment with the code yourself to see what's what.
-Basically, you can run Brainfuck programs.
-Also, you can decode Brainloller images into Brainfuck code (and then run it).
-__UPDATE:__ Now you can encode Brainfuck programs into images using Braincopter (and then decode them back).
-__UPDATE #2:__ Now there is a Brainloller encoder.
+EVERYTHING! You can run Brainfuck programs and encode/decode Brainfuck code using Brainloller
+and Braincopter. Plus, given that Brainloller produces very small images, the utility features
+an image resizer.
 
-What next?
------------
-1. Finish writing the Braincopter encoder and decoder.
-2. Write Brainfuck and Brainloller encoders.
-3. Make the utility actually work.
-4. ?????
-5. PROFIT!!!!!!~
+Usage
+------
+bftools \<operation\> \<language\> \<params\>
+
+This utility __saves__ images in PNG format, so watch your extensions.
+This utility __reads__ images in all formats supported by the .NET framework.
+
+### Encoding
+bftools encode brainloller \<input file\> \<image width\> \<output image\> <br>
+bftools encode braincopter \<input file\> \<original image\> \<output image\>
+
+### Decoding
+bftools decode brainloller \<input image\> \<output file\> <br>
+bftools decode braincopter \<input image\> \<output file\>
+
+### Running
+bftools run \<input file\>
+
+### Image operations
+bftools enlarge \<input image\> \<factor\> \<output image\> <br>
+bftools reduce \<input image\> \<factor\> \<output image\>
+
+### Getting help
+bftools help
+
+Further reading
+----------------
+- [Brainfuck](http://esolangs.org/wiki/Brainfuck)
+- [Brainloller](http://esolangs.org/wiki/Brainloller)
+- [Braincopter](http://esolangs.org/wiki/Braincopter)

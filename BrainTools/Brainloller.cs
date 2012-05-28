@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Brainfuck
 {
@@ -188,13 +189,35 @@ namespace Brainfuck
             return code;
         }
 
-        public static Bitmap Reduce(Bitmap bmp, int pxWidth, int pxHeight)
+        public static Bitmap Reduce(Bitmap bmp, int pxDimension)
         {
-            Bitmap newBmp = new Bitmap(bmp.Width / pxWidth, bmp.Height / pxHeight);
+            Bitmap newBmp = new Bitmap(bmp.Width / pxDimension, bmp.Height / pxDimension);
 
-            for (int row = 0; row < bmp.Height; row += pxHeight)
-                for (int col = 0; col < bmp.Width; col += pxWidth)
+            for (int row = 0; row < bmp.Height; row += pxDimension)
+                for (int col = 0; col < bmp.Width; col += pxDimension)
                     newBmp.SetPixel(col / 10, row / 10, bmp.GetPixel(col, row));
+
+            return newBmp;
+        }
+
+        public static Bitmap Enlarge(Bitmap bmp, int pxDimension)
+        {
+            Bitmap newBmp = new Bitmap(bmp.Width * pxDimension, bmp.Height * pxDimension);
+            Graphics g = Graphics.FromImage(newBmp);
+
+            for (int row = 0; row < bmp.Height; row++)
+            {
+                for (int col = 0; col < bmp.Width; col++)
+                {
+                    Rectangle rect = new Rectangle(col * pxDimension, row * pxDimension, pxDimension, pxDimension);
+                    Pen pen = new Pen(bmp.GetPixel(col, row));
+                    SolidBrush brush = new SolidBrush(bmp.GetPixel(col, row));
+                    g.DrawRectangle(pen, rect);
+                    g.FillRectangle(brush, rect);
+                }
+            }
+
+            g.Dispose();
 
             return newBmp;
         }
