@@ -8,7 +8,7 @@
     <ProjectGuid>{F532E232-B61C-4297-8ACB-FF237BA21D79}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Brainfuck</RootNamespace>
+    <RootNamespace>BrainTools</RootNamespace>
     <AssemblyName>bftools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>

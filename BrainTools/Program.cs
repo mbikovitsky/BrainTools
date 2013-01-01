@@ -6,7 +6,7 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 
-namespace Brainfuck
+namespace BrainTools
 {
     static class Program
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Brainfuck
+namespace BrainTools
 {
     static class Brainfuck
     {
@@ -72,6 +72,7 @@ namespace Brainfuck
                         codePointer++;
                         break;
                     default:
+                        codePointer++;
                         break;
                 }
             }
