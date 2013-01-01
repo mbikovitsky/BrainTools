@@ -5,8 +5,15 @@ using System.Text;
 
 namespace BrainTools
 {
+    /// <summary>
+    /// Methods for working with Brainfuck.
+    /// </summary>
     public static class Brainfuck
     {
+        /// <summary>
+        /// Runs the provided Brainfuck code.
+        /// </summary>
+        /// <param name="code">The code to run.</param>
         public static void Run(string code)
         {
             Tape tape = new Tape();

@@ -8,6 +8,9 @@ using System.Drawing.Imaging;
 
 namespace BrainTools
 {
+    /// <summary>
+    /// Methods for working with Brainloller.
+    /// </summary>
     public static class Brainloller
     {
         private enum Direction
@@ -15,6 +18,13 @@ namespace BrainTools
             east, west, north, south
         };
 
+        /// <summary>
+        /// Encodes the given Brainfuck code into a bitmap.
+        /// </summary>
+        /// <param name="code">The Brainfuck code to insert.</param>
+        /// <param name="width">The resulting bitmap width.</param>
+        /// <param name="gapFiller">The color to use for NOPs.</param>
+        /// <returns>The encoded bitmap.</returns>
         public static Bitmap Encode(string code, int width, Color gapFiller)
         {
             double _height = (double)code.Length / (width - 2);
@@ -99,6 +109,11 @@ namespace BrainTools
             return newBmp;
         }
 
+        /// <summary>
+        /// Decodes the given Brainloller bitmap.
+        /// </summary>
+        /// <param name="bmp">The bitmap to decode.</param>
+        /// <returns>The Brainfuck code contained in the bitmap.</returns>
         public static string Decode(Bitmap bmp)
         {
             string code = "";
@@ -189,6 +204,12 @@ namespace BrainTools
             return code;
         }
 
+        /// <summary>
+        /// Shrinks the given bitmap.
+        /// </summary>
+        /// <param name="bmp">The bitmap to shrink.</param>
+        /// <param name="pxDimension">The factor by which to shrink the bitmap.</param>
+        /// <returns>The reduced bitmap.</returns>
         public static Bitmap Reduce(Bitmap bmp, int pxDimension)
         {
             Bitmap newBmp = new Bitmap(bmp.Width / pxDimension, bmp.Height / pxDimension);
@@ -200,6 +221,12 @@ namespace BrainTools
             return newBmp;
         }
 
+        /// <summary>
+        /// Enlarges the given bitmap.
+        /// </summary>
+        /// <param name="bmp">The bitmap to enlarge.</param>
+        /// <param name="pxDimension">The factor by which to enlarge the bitmap.</param>
+        /// <returns>The enlarged bitmap.</returns>
         public static Bitmap Enlarge(Bitmap bmp, int pxDimension)
         {
             Bitmap newBmp = new Bitmap(bmp.Width * pxDimension, bmp.Height * pxDimension);

@@ -7,6 +7,9 @@ using System.Drawing;
 
 namespace BrainTools
 {
+    /// <summary>
+    /// Methods for working with Braincopter.
+    /// </summary>
     public static class Braincopter
     {
         private enum Direction
@@ -14,6 +17,12 @@ namespace BrainTools
             east, west, north, south
         };
 
+        /// <summary>
+        /// Encodes the given Brainfuck code into the given bitmap.
+        /// </summary>
+        /// <param name="bmp">The bitmap to insert the code into.</param>
+        /// <param name="code">The Brainfuck code to insert.</param>
+        /// <returns>The encoded bitmap.</returns>
         public static Bitmap Encode(Bitmap bmp, string code)
         {
             if ((bmp.Width - 2) * bmp.Height + 2 < code.Length)
@@ -95,6 +104,11 @@ namespace BrainTools
             return newBmp;
         }
 
+        /// <summary>
+        /// Decodes the given Braincopter bitmap.
+        /// </summary>
+        /// <param name="bmp">The bitmap to decode.</param>
+        /// <returns>The Brainfuck code contained in the bitmap.</returns>
         public static string Decode(Bitmap bmp)
         {
             string code = "";
