@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BrainTools
 {
-    static class Brainfuck
+    public static class Brainfuck
     {
         public static void Run(string code)
         {

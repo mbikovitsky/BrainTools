@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BrainTools
 {
-    static class Braincopter
+    public static class Braincopter
     {
         private enum Direction
         {

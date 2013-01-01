@@ -8,7 +8,7 @@ using System.Drawing.Imaging;
 
 namespace BrainTools
 {
-    static class Brainloller
+    public static class Brainloller
     {
         private enum Direction
         {

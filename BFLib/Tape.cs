@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BrainTools
 {
-    class Tape
+    internal class Tape
     {
         private List<int> tapeList;
         private int index;
