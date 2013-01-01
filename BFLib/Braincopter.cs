@@ -104,7 +104,7 @@ namespace BrainTools
             while ((curX >= 0 && curX < bmp.Width) && (curY >= 0 && curY < bmp.Height))
             {
                 Color clr = bmp.GetPixel(curX, curY);
-                int cmd = (-2 * clr.R + 3 * clr.G + clr.B) % 11;
+                int cmd = (65536 * clr.R + 256 * clr.G + clr.B) % 11;
 
                 if (cmd == 0)
                     code += ">";
@@ -188,31 +188,32 @@ namespace BrainTools
 
         private static Color GetClosest(Color origin, int cmd)
         {
-            int value = (-2 * origin.R + 3 * origin.G + origin.B) % 11;
+            int value = (65536 * origin.R + 256 * origin.G + origin.B) % 11;
             int diff = cmd - value;
 
             if (diff > 0)
             {
                 if (origin.B + diff > 255)
-                    return Color.FromArgb(origin.R, origin.G, origin.B - (10 - diff));
-                else if (origin.B - (10 - diff) < 0)
+                    return Color.FromArgb(origin.R, origin.G, origin.B - (11 - diff));
+                if (origin.B - (11 - diff) < 0)
                     return Color.FromArgb(origin.R, origin.G, origin.B + diff);
 
-                if (10 - diff < diff)
-                    return Color.FromArgb(origin.R, origin.G, origin.B - (10 - diff));
+                if (11 - diff < diff)
+                    return Color.FromArgb(origin.R, origin.G, origin.B - (11 - diff));
                 else
                     return Color.FromArgb(origin.R, origin.G, origin.B + diff);
             }
+
             if (diff < 0)
             {
                 diff = Math.Abs(diff);
-                if (origin.B - diff > 255)
-                    return Color.FromArgb(origin.R, origin.G, origin.B + (10 - diff));
-                else if (origin.B + (10 - diff) < 0)
+                if (origin.B - diff < 0)
+                    return Color.FromArgb(origin.R, origin.G, origin.B + (11 - diff));
+                if (origin.B + (11 - diff) > 255)
                     return Color.FromArgb(origin.R, origin.G, origin.B - diff);
 
-                if (10 - diff < diff)
-                    return Color.FromArgb(origin.R, origin.G, origin.B + (10 - diff));
+                if (11 - diff < diff)
+                    return Color.FromArgb(origin.R, origin.G, origin.B + (11 - diff));
                 else
                     return Color.FromArgb(origin.R, origin.G, origin.B - diff);
             }
