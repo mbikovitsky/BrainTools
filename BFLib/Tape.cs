@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BrainTools
 {
+    /// <summary>
+    /// A class for managing a Brainfuck tape.
+    /// </summary>
     internal class Tape
     {
         private List<int> tapeList;

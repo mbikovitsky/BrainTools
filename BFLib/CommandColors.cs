@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace BrainTools
 {
+    /// <summary>
+    /// Holds all Brainloller command colors.
+    /// </summary>
     internal static class CommandColors
     {
         internal static Color Right { get { return Color.FromArgb(255, 0, 0); } }
@@ -17,6 +20,11 @@ namespace BrainTools
         internal static Color RotateCW { get { return Color.FromArgb(0, 255, 255); } }
         internal static Color RotateCCW { get { return Color.FromArgb(0, 128, 128); } }
 
+        /// <summary>
+        /// Checks whether the specified System.Drawing.Color is a Brainloller command.
+        /// </summary>
+        /// <param name="clr">The System.Drawing.Color to check.</param>
+        /// <returns>True if clr is a command color, false otherwise.</returns>
         internal static bool IsCommandColor(Color clr)
         {
             Type type = typeof(CommandColors);
