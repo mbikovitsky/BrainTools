@@ -44,6 +44,7 @@
     <Compile Include="Braincopter.cs" />
     <Compile Include="Brainfuck.cs" />
     <Compile Include="Brainloller.cs" />
+    <Compile Include="CommandColors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tape.cs" />
   </ItemGroup>

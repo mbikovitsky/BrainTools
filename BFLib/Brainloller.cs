@@ -27,6 +27,9 @@ namespace BrainTools
         /// <returns>The encoded bitmap.</returns>
         public static Bitmap Encode(string code, int width, Color gapFiller)
         {
+            if (CommandColors.IsCommandColor(gapFiller))
+                return null;
+
             double _height = (double)code.Length / (width - 2);
             int height = 0;
             if (_height == (int)_height)
@@ -46,16 +49,16 @@ namespace BrainTools
 
                 if (curX == newBmp.Width - 1 && dir == Direction.east)
                 {
-                    newBmp.SetPixel(curX, curY, Color.FromArgb(0, 255, 255));
-                    newBmp.SetPixel(curX, curY + 1, Color.FromArgb(0, 255, 255));
+                    newBmp.SetPixel(curX, curY, CommandColors.RotateCW);
+                    newBmp.SetPixel(curX, curY + 1, CommandColors.RotateCW);
                     curX--;
                     curY++;
                     dir = Direction.west;
                 }
                 else if (curX == 0 && dir == Direction.west)
                 {
-                    newBmp.SetPixel(curX, curY, Color.FromArgb(0, 128, 128));
-                    newBmp.SetPixel(curX, curY + 1, Color.FromArgb(0, 128, 128));
+                    newBmp.SetPixel(curX, curY, CommandColors.RotateCCW);
+                    newBmp.SetPixel(curX, curY + 1, CommandColors.RotateCCW);
                     curX++;
                     curY++;
                     dir = Direction.east;
@@ -64,28 +67,28 @@ namespace BrainTools
                 switch (code[i])
                 {
                     case '>':
-                        clr = Color.FromArgb(255, 0, 0);
+                        clr = CommandColors.Right;
                         break;
                     case '<':
-                        clr = Color.FromArgb(128, 0, 0);
+                        clr = CommandColors.Left;
                         break;
                     case '+':
-                        clr = Color.FromArgb(0, 255, 0);
+                        clr = CommandColors.Inc;
                         break;
                     case '-':
-                        clr = Color.FromArgb(0, 128, 0);
+                        clr = CommandColors.Dec;
                         break;
                     case '.':
-                        clr = Color.FromArgb(0, 0, 255);
+                        clr = CommandColors.Print;
                         break;
                     case ',':
-                        clr = Color.FromArgb(0, 0, 128);
+                        clr = CommandColors.Read;
                         break;
                     case '[':
-                        clr = Color.FromArgb(255, 255, 0);
+                        clr = CommandColors.LoopStart;
                         break;
                     case ']':
-                        clr = Color.FromArgb(128, 128, 0);
+                        clr = CommandColors.LoopEnd;
                         break;
                     default:
                         continue;
@@ -124,24 +127,24 @@ namespace BrainTools
             {
                 Color clr = bmp.GetPixel(curX, curY);
 
-                if (clr.R == 255 && clr.G == 0 && clr.B == 0)
+                if (clr.Equals(CommandColors.Right))
                     code += ">";
-                if (clr.R == 128 && clr.G == 0 && clr.B == 0)
+                if (clr.Equals(CommandColors.Left))
                     code += "<";
-                if (clr.R == 0 && clr.G == 255 && clr.B == 0)
+                if (clr.Equals(CommandColors.Inc))
                     code += "+";
-                if (clr.R == 0 && clr.G == 128 && clr.B == 0)
+                if (clr.Equals(CommandColors.Dec))
                     code += "-";
-                if (clr.R == 0 && clr.G == 0 && clr.B == 255)
+                if (clr.Equals(CommandColors.Print))
                     code += ".";
-                if (clr.R == 0 && clr.G == 0 && clr.B == 128)
+                if (clr.Equals(CommandColors.Read))
                     code += ",";
-                if (clr.R == 255 && clr.G == 255 && clr.B == 0)
+                if (clr.Equals(CommandColors.LoopStart))
                     code += "[";
-                if (clr.R == 128 && clr.G == 128 && clr.B == 0)
+                if (clr.Equals(CommandColors.LoopEnd))
                     code += "]";
 
-                if (clr.R == 0 && clr.G == 255 && clr.B == 255)
+                if (clr.Equals(CommandColors.RotateCW))
                 {
                     switch (dir)
                     {
@@ -161,7 +164,7 @@ namespace BrainTools
                             break;
                     }
                 }
-                if (clr.R == 0 && clr.G == 128 && clr.B == 128)
+                if (clr.Equals(CommandColors.RotateCCW))
                 {
                     switch (dir)
                     {
