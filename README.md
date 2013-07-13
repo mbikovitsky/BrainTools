@@ -14,25 +14,28 @@ an image resizer.
 
 Usage
 ------
-bftools \<operation\> \<language\> \<params\>
+bftools \<operation\> \<args\>
 
 This utility __saves__ images in PNG format, so watch your extensions.
 This utility __reads__ images in all formats supported by the .NET framework.
 
+__Note: By default, this utility outputs to stdout. Piping is supported!__
+
 ### Encoding
-bftools encode brainloller \<input file\> \<image width\> \<output image\> <br>
-bftools encode braincopter \<input file\> \<original image\> \<output image\>
+bftools encode --lang brainfuck   --file \<file\> [--output \<output file\>] <br>
+bftools encode --lang brainloller --file \<file\> --width \<width\> [--output \<output image\>] <br>
+bftools encode --lang braincopter --file \<file\> --original \<original image> [--output \<output image\>]
 
 ### Decoding
-bftools decode brainloller \<input image\> \<output file\> <br>
-bftools decode braincopter \<input image\> \<output file\>
+bftools decode --lang brainloller --image \<input image\> [--output \<output image\>] <br>
+bftools decode --lang braincopter --image \<input image\> [--output \<output image\>]
 
 ### Running
-bftools run \<input file\>
+bftools run --file \<input file\>
 
 ### Image operations
-bftools enlarge \<input image\> \<factor\> \<output image\> <br>
-bftools reduce \<input image\> \<factor\> \<output image\>
+bftools enlarge --image \<input image\> --factor \<factor\> [--output \<output image\>] <br>
+bftools reduce  --image \<input image\> --factor \<factor\> [--output \<output image\>]
 
 ### Getting help
 bftools help
