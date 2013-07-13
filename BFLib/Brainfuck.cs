@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace BrainTools
 {
@@ -18,6 +19,9 @@ namespace BrainTools
             char[] program = code.ToCharArray();
             int brackets = 0;
             int codePointer = 0;
+
+            Stream stdin = Console.OpenStandardInput();
+            Stream stdout = Console.OpenStandardOutput();
 
             while (codePointer < program.Length)
             {
@@ -68,11 +72,11 @@ namespace BrainTools
                         }
                         break;
                     case '.':
-                        Console.Write((char)tape.Cell);
+                        stdout.WriteByte((byte)tape.Cell);
                         codePointer++;
                         break;
                     case ',':
-                        tape.Cell = Console.Read();
+                        tape.Cell = stdin.ReadByte();
                         codePointer++;
                         break;
                     default:
