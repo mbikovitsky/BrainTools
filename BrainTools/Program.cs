@@ -20,6 +20,12 @@ namespace BrainTools
             switch (args[0])
             {
                 case "encode":
+                    if (args.Length == 3 && args[1] == "brainfuck")
+                    {
+                        Console.Write(Brainfuck.Encode(new FileStream(args[2], FileMode.Open)));
+                        return;
+                    }
+
                     if (args.Length != 5)
                     {
                         Console.WriteLine("Wrong number of parameters.");
@@ -121,6 +127,7 @@ namespace BrainTools
             Console.WriteLine();
             Console.WriteLine("Encoding");
             Console.WriteLine("=========");
+            Console.WriteLine("bftools encode brainfuck   <input file>");
             Console.WriteLine("bftools encode brainloller <input file> <image width> <output image>");
             Console.WriteLine("bftools encode braincopter <input file> <original image> <output image>");
             Console.WriteLine();
