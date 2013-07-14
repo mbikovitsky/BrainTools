@@ -19,7 +19,7 @@ bftools \<operation\> \<args\>
 This utility __saves__ images in PNG format, so watch your extensions.
 This utility __reads__ images in all formats supported by the .NET framework.
 
-__Note: By default, this utility outputs to stdout. Piping is supported!__
+__Note: By default, this utility outputs to stdout.__
 
 ### Encoding
 bftools encode --lang brainfuck   --file \<file\> [--output \<output file\>] <br>
