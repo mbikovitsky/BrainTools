@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Collections.Generic;
 
 using ManyConsole;
 
@@ -13,7 +14,15 @@ namespace BrainTools
             //string code = ">+++++++++[<++++++++>-]<.>+++++++[<++++>-]<+.+++++++..+++.>>>++++++++[<++++>-]<.>>>++++++++++[<+++++++++>-]<---.<<<<.+++.------.--------.>>+.";
             //string code2 = "++++++++++[>+>++>+++>++++>+++++>++++++>+++++++>++++++++>+++++++++>++++++++++>+++++++++++>++++++++++++>+++++++++++++<<<<<<<<<<<<<-]>>>>>>>>--------.>>---.>>--------..>---------.<<<<<<<<<--------.>>>----.>>>>-----.>++.++.<-.----.<.>>>.<<<<<<<<<+.";
 
-            var commands = ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+            List<ConsoleCommand> commands = new List<ConsoleCommand>()
+            {
+                new RunCommand(),
+                new EncodeCommand(),
+                new DecodeCommand(),
+                new EnlargeCommand(),
+                new ReduceCommand()
+            };
+
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }
     }
