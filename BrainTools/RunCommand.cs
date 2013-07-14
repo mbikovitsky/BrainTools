@@ -7,24 +7,27 @@ namespace BrainTools
 {
     class RunCommand : ConsoleCommand
     {
-        //private string path;
         private Stream program = Console.OpenStandardInput();
 
         public RunCommand()
         {
             IsCommand("run", "Run the given Brainfuck program.");
 
-            HasOption("f|file=", "The program to run. Defaults to stdin.", v => program = File.OpenRead(v));
+            HasAdditionalArguments(1, " <program | ->");
 
             SkipsCommandSummaryBeforeRunning();
         }
 
         public override int Run(string[] remainingArguments)
         {
-            using (StreamReader read=new StreamReader(program))
+            if (remainingArguments[0] != "-")
+                program = File.OpenRead(remainingArguments[0]);
+
+            using (StreamReader read = new StreamReader(program))
             {
                 Brainfuck.Run(read.ReadToEnd());
             }
+
             return 0;
         }
     }

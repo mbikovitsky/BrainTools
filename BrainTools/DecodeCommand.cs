@@ -8,7 +8,6 @@ namespace BrainTools
 {
     class DecodeCommand : ConsoleCommand
     {
-        private string lang;
         private Stream input = Console.OpenStandardInput();
         private Stream output = Console.OpenStandardOutput();
 
@@ -16,20 +15,19 @@ namespace BrainTools
         {
             IsCommand("decode", "Decode input image using one of the languages.");
 
-            HasRequiredOption("l|lang=",
-                "The language to use for decoding:\nbrainloller\nbraincopter",
-                v => lang = v);
+            HasOption("o|output=", "OPTIONAL. Output file. Defaults to stdout.", v => output = File.OpenWrite(v));
 
-            HasOption("i|image=", "The input image. Defaults to stdin.", v => input = File.OpenRead(v));
-
-            HasOption("o|output=", "Output file. Defaults to stdout.", v => output = File.OpenWrite(v));
+            HasAdditionalArguments(2, "<brainloller | braincopter> <image | ->");
 
             SkipsCommandSummaryBeforeRunning();
         }
 
         public override int Run(string[] remainingArguments)
         {
-            switch (lang)
+            if (remainingArguments[1] != "-")
+                input = File.OpenRead(remainingArguments[1]);
+
+            switch (remainingArguments[0])
             {
                 case "brainloller":
                     using (StreamWriter writer = new StreamWriter(output))

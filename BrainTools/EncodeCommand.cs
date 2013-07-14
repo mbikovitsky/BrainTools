@@ -8,7 +8,6 @@ namespace BrainTools
 {
     class EncodeCommand : ConsoleCommand
     {
-        private string lang;
         private int width;
         private Stream input = Console.OpenStandardInput();
         private Stream output = Console.OpenStandardOutput();
@@ -18,24 +17,21 @@ namespace BrainTools
         {
             IsCommand("encode", "Encode input file using one of the languages.");
             
-            HasRequiredOption("l|lang=",
-                "The language to use for encoding:\nbrainfuck\nbrainloller\nbraincopter",
-                v => lang = v);
-
-            HasOption("f|file=",
-                "The file to encode. Defaults to stdin.",
-                v => input = File.OpenRead(v));
-
             HasOption("w|width=", "Resulting image width when encoding with Brainloller.", v => width = int.Parse(v));
-            HasOption("o|output=", "Output file. Defaults to stdout.", v => output = File.OpenWrite(v));
             HasOption("i|original=", "Original image for encoding with Braincopter.", v => orig_image = v);
+            HasOption("o|output=", "OPTIONAL. Output file. Defaults to stdout.", v => output = File.OpenWrite(v));
+
+            HasAdditionalArguments(2, "<brainfuck | brainloller | braincopter> <file | ->");
 
             SkipsCommandSummaryBeforeRunning();
         }
 
         public override int Run(string[] remainingArguments)
         {
-            switch (lang)
+            if (remainingArguments[1] != "-")
+                input = File.OpenRead(remainingArguments[1]);
+
+            switch (remainingArguments[0])
             {
                 case "brainfuck":
                     using (StreamWriter sw = new StreamWriter(output))
