@@ -9,7 +9,7 @@ namespace BrainTools
     class DecodeCommand : ConsoleCommand
     {
         private string lang;
-        private Bitmap img;
+        private Stream input = Console.OpenStandardInput();
         private Stream output = Console.OpenStandardOutput();
 
         public DecodeCommand()
@@ -20,9 +20,9 @@ namespace BrainTools
                 "The language to use for decoding:\nbrainloller\nbraincopter",
                 v => lang = v);
 
-            HasRequiredOption("i|image=", "The input image.", v => img = new Bitmap(v));
+            HasOption("i|image=", "The input image. Defaults to stdin.", v => input = File.OpenRead(v));
 
-            HasOption("o|output=", "Output file. Defaults to stdout.", v => output = new FileStream(v, FileMode.Create));
+            HasOption("o|output=", "Output file. Defaults to stdout.", v => output = File.OpenWrite(v));
 
             SkipsCommandSummaryBeforeRunning();
         }
@@ -34,13 +34,13 @@ namespace BrainTools
                 case "brainloller":
                     using (StreamWriter writer = new StreamWriter(output))
                     {
-                        writer.Write(Brainloller.Decode(img));
+                        writer.Write(Brainloller.Decode(new Bitmap(input)));
                     }
                     return 0;
                 case "braincopter":
                     using (StreamWriter writer=new StreamWriter(output))
                     {
-                        writer.Write(Braincopter.Decode(img));
+                        writer.Write(Braincopter.Decode(new Bitmap(input)));
                     }
                     return 0;
                 default:

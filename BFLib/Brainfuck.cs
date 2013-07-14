@@ -89,9 +89,9 @@ namespace BrainTools
         /// <summary>
         /// Encodes the specified file into Brainfuck code.
         /// </summary>
-        /// <param name="input">FileStream for the file to read.</param>
+        /// <param name="input">Stream representing the file to read.</param>
         /// <returns>String with the generated code.</returns>
-        public static string Encode(FileStream input)
+        public static string Encode(Stream input)
         {
             /* The following code was adapted from https://github.com/splitbrain/ook/blob/master/util.php
              * Licensed under the GNU General Public License Version 2.
@@ -100,9 +100,10 @@ namespace BrainTools
             int value = 0;          // Value of current pointer
             string result = "";
 
-            for (int i = 0; i < input.Length; i++)
+            int temp = input.ReadByte();
+
+            while (temp != -1)
             {
-                int temp = input.ReadByte();
                 int diff = temp - value;        // Difference between current value and target value
 
                 value = temp;
@@ -111,6 +112,7 @@ namespace BrainTools
                 if (diff == 0)
                 {
                     result += ">.<";
+                    temp = input.ReadByte();
                     continue;
                 }
 
@@ -146,10 +148,11 @@ namespace BrainTools
                 }
 
                 result += ".<";
+
+                temp = input.ReadByte();
             }
 
             // Cleanup
-            input.Close();
             return result.Replace("<>", "");
         }
     }
