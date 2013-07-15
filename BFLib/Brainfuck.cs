@@ -87,9 +87,9 @@ namespace BrainTools
         }
 
         /// <summary>
-        /// Encodes the specified file into Brainfuck code.
+        /// Encodes the specified Stream into Brainfuck code.
         /// </summary>
-        /// <param name="input">Stream representing the file to read.</param>
+        /// <param name="input">Stream to encode.</param>
         /// <returns>String with the generated code.</returns>
         public static string Encode(Stream input)
         {
