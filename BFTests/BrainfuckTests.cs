@@ -41,5 +41,21 @@ namespace BFTests
             // The second loop should be skipped entirely since the cell value is zero.
             Assert.AreEqual("F", RunMemoryBFTest("++++++++++[->+++++++<][>++++<]>."));
         }
+
+        [TestMethod]
+        public void UnmatchedLoopTokenTest()
+        {
+            try
+            {
+                Brainfuck.Run("[++");
+                Brainfuck.Run("++]");
+                Brainfuck.Run("++[->++<]]");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                // Test fails
+                Assert.Fail();
+            }
+        }
     }
 }

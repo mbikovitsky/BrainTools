@@ -33,7 +33,7 @@ namespace BrainTools
             if (stdout == null)
                 stdout = Console.OpenStandardOutput();
 
-            while (codePointer < program.Length)
+            while (codePointer >= 0 && codePointer < program.Length)
             {
                 switch (program[codePointer])
                 {
@@ -57,9 +57,8 @@ namespace BrainTools
                         if (tape.Cell == 0)
                         {
                             brackets++;
-                            while (brackets != 0)
+                            while (brackets != 0 && ++codePointer < program.Length)
                             {
-                                codePointer++;
                                 if (program[codePointer] == '[')
                                     brackets++;
                                 else if (program[codePointer] == ']')
@@ -72,9 +71,8 @@ namespace BrainTools
                         break;
                     case ']':
                         brackets++;
-                        while (brackets != 0)
+                        while (brackets != 0 && --codePointer >= 0)
                         {
-                            codePointer--;
                             if (program[codePointer] == ']')
                                 brackets++;
                             else if (program[codePointer] == '[')
