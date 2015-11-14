@@ -11,8 +11,16 @@ namespace BrainTools
         /// <summary>
         /// Runs the provided Brainfuck code.
         /// </summary>
-        /// <param name="code">The code to run.</param>
-        public static void Run(string code)
+        /// <param name="code">
+        /// The code to run.
+        /// </param>
+        /// <param name="stdin">
+        /// Optional. The input stream. Console is used if not specified.
+        /// </param>
+        /// <param name="stdout">
+        /// Optional. The ouput stream. Console is used if not specified.
+        /// </param>
+        public static void Run(string code, Stream stdin = null, Stream stdout = null)
         {
             Tape tape = new Tape();
 
@@ -20,10 +28,12 @@ namespace BrainTools
             int brackets = 0;
             int codePointer = 0;
 
-            Stream stdin = Console.OpenStandardInput();
-            Stream stdout = Console.OpenStandardOutput();
+            if (stdin == null)
+                stdin = Console.OpenStandardInput();
+            if (stdout == null)
+                stdout = Console.OpenStandardOutput();
 
-            while (codePointer < program.Length)
+            while (codePointer >= 0 && codePointer < program.Length)
             {
                 switch (program[codePointer])
                 {
@@ -36,20 +46,19 @@ namespace BrainTools
                         codePointer++;
                         break;
                     case '>':
-                        tape.Right();
+                        tape.MoveRight();
                         codePointer++;
                         break;
                     case '<':
-                        tape.Left();
+                        tape.MoveLeft();
                         codePointer++;
                         break;
                     case '[':
                         if (tape.Cell == 0)
                         {
                             brackets++;
-                            while (brackets != 0)
+                            while (brackets != 0 && ++codePointer < program.Length)
                             {
-                                codePointer++;
                                 if (program[codePointer] == '[')
                                     brackets++;
                                 else if (program[codePointer] == ']')
@@ -62,9 +71,8 @@ namespace BrainTools
                         break;
                     case ']':
                         brackets++;
-                        while (brackets != 0)
+                        while (brackets != 0 && --codePointer >= 0)
                         {
-                            codePointer--;
                             if (program[codePointer] == ']')
                                 brackets++;
                             else if (program[codePointer] == '[')
