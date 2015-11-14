@@ -1,9 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainTools", "BrainTools\BrainTools.csproj", "{F532E232-B61C-4297-8ACB-FF237BA21D79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFLib", "BFLib\BFLib.csproj", "{9FBB13F0-F0EA-44E3-AAE1-52B02D0766C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFTests", "BFTests\BFTests.csproj", "{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,16 @@ Global
 		{9FBB13F0-F0EA-44E3-AAE1-52B02D0766C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9FBB13F0-F0EA-44E3-AAE1-52B02D0766C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9FBB13F0-F0EA-44E3-AAE1-52B02D0766C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8EBAAD50-1CB1-4A30-B464-AAF17DD04D90}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
